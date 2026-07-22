@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page page-inbox" data-page="inbox">
+  <div class="inbox-drop" data-drop-zone>
+    <div class="inbox-drop-label">Quick drop</div>
+    <textarea
+      class="inbox-drop-input"
+      data-quick-drop
+      placeholder="Note... Enter to send, Shift+Enter for a new line, Ctrl+V to paste an image"
+      rows="3"
+      autofocus
+    ></textarea>
+    <div class="inbox-drop-footer">
+      <span class="inbox-drop-hint">Drop a file onto the page or paste an image (Ctrl+V)</span>
+      <span class="inbox-drop-error" data-drop-error hidden></span>
+    </div>
+  </div>
+
+  <div class="recovery-banner" data-recovery-banner hidden>
+    <span class="recovery-banner-text" data-recovery-text></span>
+    <div class="recovery-banner-actions">
+      <button type="button" data-recovery-scan>Quick scan</button>
+      <button type="button" class="danger" data-recovery-defer>Defer the rest</button>
+    </div>
+  </div>
+
+  <div class="inbox-toolbar">
+    <div class="inbox-filters" role="tablist" data-filters>
+      <button type="button" class="filter-btn active" data-filter="inbox" aria-selected="true">Inbox</button>
+      <button type="button" class="filter-btn" data-filter="info" aria-selected="false">Info</button>
+      <button type="button" class="filter-btn" data-filter="deferred" aria-selected="false">Deferred</button>
+      <button type="button" class="filter-btn" data-filter="archived" aria-selected="false">Archived</button>
+    </div>
+    <div class="inbox-toolbar-actions">
+      <div class="bulk-toolbar" data-bulk-toolbar hidden>
+        <span class="bulk-toolbar-count" data-bulk-count></span>
+        <button type="button" class="small" data-bulk-attach>Attach selected to…</button>
+      </div>
+      <div class="parse-all-panel" data-parse-all-panel>
+        <button type="button" class="parse-all-header" data-parse-all-toggle aria-expanded="false">
+          <span class="parse-all-title">Parse all</span>
+          <span class="parse-all-chevron" data-parse-all-chevron>&#9656;</span>
+        </button>
+        <div class="parse-all-body" data-parse-all-body hidden>
+          <p class="page-hint">
+            Sequential LLM parsing of the feed's Inbox notes. Notes that already
+            have a suggestion are skipped. "Stop" halts after the current one.
+          </p>
+          <div class="parse-all-actions">
+            <button type="button" class="primary" data-parse-all-start>Parse all</button>
+            <button type="button" class="danger" data-parse-all-stop hidden>Stop</button>
+            <span class="parse-all-progress" data-parse-all-progress></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-feed" data-note-feed></div>
+
+  <div class="attach-dropdown" data-attach-dropdown hidden>
+    <input type="text" class="attach-dropdown-input" data-attach-search placeholder="Search items…" autocomplete="off" />
+    <div class="attach-dropdown-results" data-attach-results></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="/static/js/inbox.js"></script>
+{% endblock %}

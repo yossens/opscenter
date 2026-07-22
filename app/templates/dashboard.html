@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page page-dashboard" data-page="dashboard">
+  <h1>Dashboard</h1>
+
+  <p class="dashboard-error" data-dashboard-error hidden></p>
+
+  <div class="dashboard-cards" data-stat-cards>
+    <div class="stat-card">
+      <span class="stat-card-label">Total items</span>
+      <span class="stat-card-value" data-stat-total>&mdash;</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card-label">Active</span>
+      <span class="stat-card-value" data-stat-active>&mdash;</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-card-label">Closed</span>
+      <span class="stat-card-value" data-stat-closed>&mdash;</span>
+    </div>
+  </div>
+
+  <!-- Bars by stage: bar height is proportional to deal_count; below each bar is
+       the age in stage (avg/max business days). The inline SVG is built by dashboard.js. -->
+  <div class="dashboard-stages">
+    <h2>Items by stage</h2>
+    <div class="stage-chart" data-stage-chart></div>
+  </div>
+
+  <div class="dashboard-llm">
+    <h2>LLM</h2>
+    <dl class="llm-summary" data-llm-summary>
+      <div><dt>Calls</dt><dd data-llm-total>&mdash;</dd></div>
+      <div><dt>Successful</dt><dd data-llm-success>&mdash;</dd></div>
+      <div><dt>Errors</dt><dd data-llm-error>&mdash;</dd></div>
+      <div><dt>Avg time, ms</dt><dd data-llm-duration>&mdash;</dd></div>
+      <div><dt>Input tokens</dt><dd data-llm-input-tokens>&mdash;</dd></div>
+      <div><dt>Output tokens</dt><dd data-llm-output-tokens>&mdash;</dd></div>
+    </dl>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="/static/js/dashboard.js"></script>
+{% endblock %}

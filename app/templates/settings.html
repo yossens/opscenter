@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page page-settings" data-page="settings">
+  <div class="settings-toolbar">
+    <h1>Settings — stages</h1>
+    <button type="button" class="primary" data-stage-add-toggle>+ Stage</button>
+  </div>
+  <p class="page-hint">
+    Name and wait threshold — click a value, Enter saves, Esc cancels.
+    Order — the ↑/↓ arrows on a row, or drag the whole row.
+  </p>
+  <p class="inbox-drop-error" data-settings-error hidden></p>
+
+  <section class="theme-settings surface">
+    <h2 class="theme-settings-title">Theme</h2>
+    <p class="page-hint">
+      Applied instantly and remembered on this device. Item statuses
+      (on time / due soon / overdue) stay recognizable across all themes.
+    </p>
+    <div class="theme-grid">
+      <button type="button" class="theme-option" data-theme-option="console">
+        <span class="theme-option-head">
+          <span class="theme-option-name">Console · Aqua</span>
+          <span class="theme-option-current">Selected</span>
+        </span>
+        <span class="theme-option-desc">Dark graphite, signal aqua. Default.</span>
+        <span class="theme-swatch" style="background:#0e1116">
+          <span class="theme-swatch-chip" style="background:#161b23"></span>
+          <span class="theme-swatch-chip wide" style="background:#4cc4d0"></span>
+          <span class="theme-swatch-sep"></span>
+          <span class="theme-swatch-chip" style="background:#5cb374"></span>
+          <span class="theme-swatch-chip" style="background:#d6a44e"></span>
+          <span class="theme-swatch-chip" style="background:#e26b63"></span>
+        </span>
+      </button>
+
+      <button type="button" class="theme-option" data-theme-option="midnight">
+        <span class="theme-option-head">
+          <span class="theme-option-name">Midnight · Indigo</span>
+          <span class="theme-option-current">Selected</span>
+        </span>
+        <span class="theme-option-desc">Deep blue-black, calm periwinkle.</span>
+        <span class="theme-swatch" style="background:#0b0e18">
+          <span class="theme-swatch-chip" style="background:#131a2c"></span>
+          <span class="theme-swatch-chip wide" style="background:#808cff"></span>
+          <span class="theme-swatch-sep"></span>
+          <span class="theme-swatch-chip" style="background:#59bd88"></span>
+          <span class="theme-swatch-chip" style="background:#d6a44e"></span>
+          <span class="theme-swatch-chip" style="background:#e56e78"></span>
+        </span>
+      </button>
+
+      <button type="button" class="theme-option" data-theme-option="plum">
+        <span class="theme-option-head">
+          <span class="theme-option-name">Graphite · Purple</span>
+          <span class="theme-option-current">Selected</span>
+        </span>
+        <span class="theme-option-desc">Warm charcoal, techno purple, sharp corners.</span>
+        <span class="theme-swatch" style="background:#17141b">
+          <span class="theme-swatch-chip" style="background:#211b29"></span>
+          <span class="theme-swatch-chip wide" style="background:#d264da"></span>
+          <span class="theme-swatch-sep"></span>
+          <span class="theme-swatch-chip" style="background:#5cb374"></span>
+          <span class="theme-swatch-chip" style="background:#d6a44e"></span>
+          <span class="theme-swatch-chip" style="background:#e26b63"></span>
+        </span>
+      </button>
+
+      <button type="button" class="theme-option" data-theme-option="daylight">
+        <span class="theme-option-head">
+          <span class="theme-option-name">Daylight · Light</span>
+          <span class="theme-option-current">Selected</span>
+        </span>
+        <span class="theme-option-desc">Light, cool interface for daytime work.</span>
+        <span class="theme-swatch" style="background:#e9edf2">
+          <span class="theme-swatch-chip" style="background:#ffffff"></span>
+          <span class="theme-swatch-chip wide" style="background:#0e9aa7"></span>
+          <span class="theme-swatch-sep"></span>
+          <span class="theme-swatch-chip" style="background:#2f8f52"></span>
+          <span class="theme-swatch-chip" style="background:#b5791a"></span>
+          <span class="theme-swatch-chip" style="background:#cf4d45"></span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <form class="stage-add-form surface" data-stage-add-form hidden>
+    <div class="form-row">
+      <label for="stage-add-name">Name *</label>
+      <input type="text" id="stage-add-name" name="name" required autocomplete="off">
+    </div>
+    <div class="form-row">
+      <label for="stage-add-threshold">Threshold, business days (default 5)</label>
+      <input type="number" id="stage-add-threshold" name="threshold_days" min="1" step="1" autocomplete="off">
+    </div>
+    <p class="inbox-drop-error" data-stage-add-error hidden></p>
+    <div class="modal-footer">
+      <button type="button" data-stage-add-cancel>Cancel</button>
+      <button type="submit" class="primary">Add</button>
+    </div>
+  </form>
+
+  <div class="stage-list" data-stage-list></div>
+  <p class="page-hint" data-stage-empty hidden>No stages yet.</p>
+
+  <section class="ping-settings surface" data-ping-settings>
+    <h2 class="ping-settings-title">Hang detector</h2>
+    <p class="page-hint">
+      The ping text template and the "M" threshold — how many business days an
+      item is hidden from the "Ping Today" block after a ping is sent.
+    </p>
+    <form data-ping-settings-form>
+      <div class="form-row">
+        <label for="ping-settings-template">Ping template</label>
+        <textarea id="ping-settings-template" data-ping-template rows="4"></textarea>
+        <p class="ping-settings-placeholders">
+          Available placeholders:
+          <code>{counterparty}</code> <code>{stage}</code> <code>{days}</code>
+          <code>{waiting_for}</code> <code>{last_note}</code> — empty ones collapse
+          cleanly, without leftover commas or periods.
+        </p>
+      </div>
+      <div class="form-row ping-settings-hidden-days-row">
+        <label for="ping-settings-hidden-days">M, business days hidden after a ping</label>
+        <input type="number" id="ping-settings-hidden-days" data-ping-hidden-days min="0" max="365" step="1" autocomplete="off">
+      </div>
+      <p class="inbox-drop-error" data-ping-settings-error hidden></p>
+      <div class="modal-footer">
+        <button type="button" data-ping-reset-default>Reset to default</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="ping-settings surface" data-parse-settings>
+    <h2 class="ping-settings-title">LLM parsing</h2>
+    <p class="page-hint">
+      Estimated parsing cost (by tokens) and the confidence threshold: suggestions
+      below the threshold are flagged in the feed as "low confidence".
+    </p>
+    <table class="llm-stats-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Today</th>
+          <th>30 days</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Calls</td>
+          <td data-stat="today-calls">—</td>
+          <td data-stat="m30-calls">—</td>
+        </tr>
+        <tr>
+          <td>Tokens (input)</td>
+          <td data-stat="today-input">—</td>
+          <td data-stat="m30-input">—</td>
+        </tr>
+        <tr>
+          <td>Tokens (output)</td>
+          <td data-stat="today-output">—</td>
+          <td data-stat="m30-output">—</td>
+        </tr>
+        <tr>
+          <td>Estimated cost</td>
+          <td data-stat="today-cost">—</td>
+          <td data-stat="m30-cost">—</td>
+        </tr>
+      </tbody>
+    </table>
+    <form data-parse-settings-form>
+      <div class="form-row parse-threshold-row">
+        <label for="parse-threshold">Confidence threshold (0–1)</label>
+        <input type="number" id="parse-threshold" data-parse-threshold min="0" max="1" step="0.05" autocomplete="off">
+      </div>
+      <p class="inbox-drop-error" data-parse-settings-error hidden></p>
+      <div class="modal-footer">
+        <button type="button" data-parse-reset-default>Reset to default</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="/static/js/settings.js"></script>
+<script>
+  // Theme switcher. Applies the choice instantly and saves it on the device;
+  // on the next load the inline script in base.html picks up the theme.
+  (function () {
+    var KEY = "opscenter-theme";
+    var current = "console";
+    try { current = localStorage.getItem(KEY) || "console"; } catch (e) {}
+    var options = document.querySelectorAll("[data-theme-option]");
+
+    function mark(theme) {
+      options.forEach(function (btn) {
+        btn.classList.toggle("active", btn.dataset.themeOption === theme);
+      });
+    }
+
+    mark(current);
+
+    options.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var theme = btn.dataset.themeOption;
+        document.documentElement.setAttribute("data-theme", theme);
+        try { localStorage.setItem(KEY, theme); } catch (e) {}
+        mark(theme);
+      });
+    });
+  })();
+</script>
+{% endblock %}

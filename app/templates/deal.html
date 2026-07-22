@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page page-deal" data-page="deal">
+  <div class="deal-header">
+    <div class="deal-header-main">
+      <h1 class="deal-title" data-deal-title>Item</h1>
+      <span class="badge" data-days-badge hidden></span>
+    </div>
+    <div class="deal-stage-select-wrap">
+      <label class="deal-field-label" for="deal-stage-select">Stage</label>
+      <select id="deal-stage-select" data-deal-stage-select></select>
+    </div>
+  </div>
+
+  <p class="inbox-drop-error" data-deal-error hidden></p>
+  <p class="page-hint" data-deal-not-found hidden>Item not found.</p>
+
+  <div class="deal-layout" data-deal-layout hidden>
+    <div class="deal-fields-panel surface">
+      <h2>Card fields</h2>
+
+      <div class="deal-field" data-field="company" data-field-type="text">
+        <span class="deal-field-label">Organization</span>
+        <div class="deal-field-value" data-field-value tabindex="0" role="button"></div>
+      </div>
+
+      <div class="deal-field" data-field="partner" data-field-type="text">
+        <span class="deal-field-label">Contact</span>
+        <div class="deal-field-value" data-field-value tabindex="0" role="button"></div>
+      </div>
+
+      <div class="deal-field" data-field="description" data-field-type="textarea">
+        <span class="deal-field-label">Details</span>
+        <div class="deal-field-value deal-field-value-textarea" data-field-value tabindex="0" role="button"></div>
+      </div>
+
+      <h2>Automatic</h2>
+      <dl class="deal-automatic">
+        <div class="deal-automatic-row">
+          <dt>Stage entered</dt>
+          <dd data-stage-entered-at>—</dd>
+        </div>
+        <div class="deal-automatic-row">
+          <dt>Last activity</dt>
+          <dd data-last-activity-at>—</dd>
+        </div>
+        <div class="deal-automatic-row">
+          <dt>Created</dt>
+          <dd data-created-at>—</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="deal-feed-panel">
+      <div class="inbox-drop" data-drop-zone>
+        <textarea
+          class="inbox-drop-input"
+          data-quick-drop
+          placeholder="Note for this item... Enter to send, Shift+Enter for a new line, Ctrl+V to paste an image"
+          rows="3"
+        ></textarea>
+        <div class="inbox-drop-footer">
+          <span class="inbox-drop-hint">Drop a file here or paste an image (Ctrl+V) — it goes straight into this item</span>
+          <span class="inbox-drop-error" data-drop-error hidden></span>
+        </div>
+      </div>
+
+      <h2>Feed</h2>
+      <div class="note-feed" data-note-feed></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="/static/js/deal.js"></script>
+{% endblock %}

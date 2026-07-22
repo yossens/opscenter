@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page page-archive" data-page="archive">
+  <h1>Archive</h1>
+  <p class="page-hint" data-archive-empty hidden>No closed items yet.</p>
+  <div class="archive-list" data-archive-list></div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="/static/js/board.js"></script>
+{% endblock %}

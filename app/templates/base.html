@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ title }}{% endblock %} — OpsCenter</title>
+  <script>
+    // Apply the saved theme before rendering — no flash.
+    // Theme selection lives in Settings (see settings.html).
+    (function () {
+      try {
+        var t = localStorage.getItem("opscenter-theme");
+        if (t) document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="/" class="brand">OpsCenter</a>
+    <nav class="app-nav">
+      <a href="/" class="nav-link{{ ' active' if request.url.path == '/' else '' }}">Inbox</a>
+      <a href="/board" class="nav-link{{ ' active' if request.url.path == '/board' else '' }}">Board</a>
+      <a href="/dashboard" class="nav-link{{ ' active' if request.url.path == '/dashboard' else '' }}">Dashboard</a>
+      <a href="/archive" class="nav-link{{ ' active' if request.url.path == '/archive' else '' }}">Archive</a>
+      <a href="/settings" class="nav-link{{ ' active' if request.url.path == '/settings' else '' }}">Settings</a>
+    </nav>
+    <div class="header-search-wrap">
+      <input
+        type="search"
+        class="header-search"
+        placeholder="Search (/)"
+        autocomplete="off"
+        data-search-input
+      >
+      <div class="search-dropdown" data-search-dropdown hidden></div>
+    </div>
+    <div class="inbox-counter" data-inbox-counter title="Inbox notes">
+      <span class="inbox-counter-value" data-inbox-counter-value>&mdash;</span>
+      <span class="inbox-counter-label">in Inbox</span>
+    </div>
+  </header>
+  <main class="app-main">
+    {% block content %}{% endblock %}
+  </main>
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/search.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

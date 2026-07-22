@@ -1,0 +1,30 @@
+.venv/
+venv/
+data/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.env
+.claude/
+
+# Logs
+*.log
+
+# codebase-memory-mcp graph artifact
+.codebase-memory/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+
+# Documentation
+docs/
+
+# Project guidelines and changelogs
+CLAUDE.md
+CHANGELOG.md

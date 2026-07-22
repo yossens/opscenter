@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page page-board" data-page="board">
+  <div class="board-toolbar">
+    <h1>Board</h1>
+    <div class="board-toolbar-actions">
+      <button type="button" data-slice-btn>Slice</button>
+      <button type="button" class="primary" data-new-deal>+ Item</button>
+    </div>
+  </div>
+  <div class="ping-panel" data-ping-panel>
+    <button type="button" class="ping-panel-header" data-ping-panel-toggle>
+      <span class="ping-panel-title">Ping Today</span>
+      <span class="ping-panel-count" data-ping-count>0</span>
+      <span class="ping-panel-chevron" data-ping-chevron>&#9662;</span>
+    </button>
+    <div class="ping-panel-body" data-ping-panel-body>
+      <p class="ping-panel-error" data-ping-error hidden></p>
+      <p class="page-hint ping-panel-empty" data-ping-empty hidden>Nothing is stuck.</p>
+      <div class="ping-list" data-ping-list></div>
+    </div>
+  </div>
+
+  <p class="page-hint" data-board-empty hidden>No stages yet.</p>
+  <div class="board-columns" data-board-columns></div>
+</section>
+
+<div class="modal-overlay" data-new-deal-modal hidden>
+  <div class="modal">
+    <div class="modal-header">
+      <h2>New Item</h2>
+      <button type="button" class="small" data-modal-close aria-label="Close">&times;</button>
+    </div>
+    <form data-new-deal-form>
+      <div class="form-row">
+        <label for="new-deal-title">Title *</label>
+        <input type="text" id="new-deal-title" name="title" required autocomplete="off">
+      </div>
+      <div class="form-row">
+        <label for="new-deal-company">Organization</label>
+        <input type="text" id="new-deal-company" name="company" autocomplete="off">
+      </div>
+      <div class="form-row">
+        <label for="new-deal-partner">Contact</label>
+        <input type="text" id="new-deal-partner" name="partner" autocomplete="off">
+      </div>
+      <p class="inbox-drop-error" data-new-deal-error hidden></p>
+      <div class="modal-footer">
+        <button type="button" data-modal-cancel>Cancel</button>
+        <button type="submit" class="primary">Create</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay" data-slice-modal hidden>
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Slice</h2>
+      <button type="button" class="small" data-modal-close aria-label="Close">&times;</button>
+    </div>
+    <p class="page-hint" data-slice-empty hidden>No active items.</p>
+    <pre class="slice-text" data-slice-text></pre>
+    <div class="modal-footer">
+      <span class="slice-copy-feedback" data-slice-feedback hidden></span>
+      <button type="button" data-modal-cancel>Close</button>
+      <button type="button" class="primary" data-slice-copy>Copy</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="/static/js/board.js"></script>
+{% endblock %}

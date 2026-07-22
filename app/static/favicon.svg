@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect x="0" y="0" width="32" height="32" rx="8" fill="#12161d"/>
+  <rect x="0.6" y="0.6" width="30.8" height="30.8" rx="7.4" fill="none" stroke="#29313d" stroke-width="1.2"/>
+  <!-- «сигнальная» дуга-датчик: разрыв кольца читается как радар/шкала -->
+  <circle cx="16" cy="16" r="9" fill="none" stroke="#4cc4d0" stroke-width="3"
+          stroke-linecap="round" stroke-dasharray="42 15" transform="rotate(-60 16 16)"/>
+  <!-- центральная точка — та же, что пульсирует у логотипа -->
+  <circle cx="16" cy="16" r="3.1" fill="#4cc4d0"/>
+</svg>
